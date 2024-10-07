@@ -1,0 +1,23 @@
+import cv2
+import os
+
+cam = cv2.VideoCapture(0)
+output_dir = './dataset/neeraj/'
+os.makedirs(output_dir, exist_ok=True)
+
+images = []
+while True:
+    ret, frame = cam.read()
+    cv2.imshow('Camera', frame)
+    images.append(frame)
+    if(len(images) >= 20):
+        break
+
+count = 0
+for image in images:
+    output_path = os.path.join(output_dir, f'neeraj_{count:04d}.png')
+    cv2.imwrite(output_path, image)
+    count += 1    
+
+cam.release()
+cv2.destroyAllWindows()
